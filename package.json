@@ -1,0 +1,23 @@
+{
+  "name": "aw1-weeks-2025",
+  "version": "1.0.0",
+  "description": "database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doroteaMonaco/aw1-weeks-2025.git"
+  },
+  "author": "Dorotea",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doroteaMonaco/aw1-weeks-2025/issues"
+  },
+  "homepage": "https://github.com/doroteaMonaco/aw1-weeks-2025#readme",
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "nodejs": "^0.0.0"
+  }
+}
