@@ -12,7 +12,16 @@ const db = new sqlite.Database('questions.sqlite', (err) => {
 /** QUESTIONS **/
 // get all the questions
 export const listQuestions = () => {
-  // write something clever
+  return new Promise ((resolve, reject) => {
+    const sql = 'SELECT question.*, user.email FROM question JOIN user ON question.authorId = user.id';
+    db.all(sql, (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows.map(quest => new Question(quest.id, quest.text, quest.email, quest.userId, quest.date)));
+      }
+    });
+  });
 }
 
 // get a question given its id
@@ -76,7 +85,17 @@ export const addAnswer = (answer, questionId) => {
 
 // update an existing answer
 export const updateAnswer = (answer) => {
-  // write something clever
+    return new Promise( (resolve, reject) => {
+      const sql = 'UPDATE answer SET text = ?, authorId = ?, date = ?, score = ? WHERE id = ?';
+      db.run(sql, [answer.text, answer.userId, answer.date, answer.score, answer.id], function(err) {
+        if(err){
+          reject(err);
+        }
+        else{
+          resolve(this.changes);
+        }
+      })
+    });
 }
 
 // vote for an answer

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/doroteaMonaco/aw1-weeks-2025#readme",
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "dayjs": "^1.11.13",
     "nodejs": "^0.0.0"
   }

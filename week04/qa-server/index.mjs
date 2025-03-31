@@ -1,17 +1,25 @@
-// import
-import express from 'express';
+import express, {json, response} from 'express';
 import morgan from 'morgan';
-import { getQuestion } from './dao.mjs';
+import { validationResult, check } from 'express-validator';
+import {listQuestions, getQuestion, listAnswersOf, addAnswer, updateAnswer, voteAnswer} from './dao.mjs';
 
-// init
+//init
 const app = express();
 const port = 3001;
 
-// middleware
+//middleware
+
 app.use(express.json());
 app.use(morgan('dev'));
 
-/* ROUTES */
+/*ROUTE*/
+ 
+//GET all questions /api/questions
+app.get('/api/questions', (req, res) => {
+  listQuestions()
+  .then(questions => res.json(questions))
+  .catch(() => res.status(500).end());
+});
 
 // GET /api/questions/<id>
 app.get('/api/questions/:id', async (request, response) => {
@@ -28,5 +36,86 @@ app.get('/api/questions/:id', async (request, response) => {
   }
 });
 
-// start the server
-app.listen(port, () => {console.log('API server started...')});
+// GET /api/questions/<id>/answers
+app.get('/api/questions/:id/answers', async (req, res) => {
+  try {
+    const answers = await listAnswersOf(req.params.id);
+    res.json(answers);
+  } catch {
+    res.status(500).end();
+  }
+});
+
+// POST /api/questions/<id>/answers
+app.post('/api/questions/:id/answers', [
+  check('text').notEmpty(),
+  check('email').isEmail(),
+  check('score').isNumeric(),
+  check('date').isDate({format: 'YYYY-MM-DD', strictMode: true})
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()});
+  }
+
+  const newAnswer = req.body;
+  const questionId = req.params.id;
+
+  try {
+    const id = await addAnswer(newAnswer, questionId);
+    res.status(201).location(id).end();
+  } catch(e) {
+    console.error(`ERROR: ${e.message}`);
+    res.status(503).json({error: 'Impossible to create the answer.'});
+  }
+});
+
+// POST /api/answers/<id>/vote
+app.post('/api/answers/:id/vote', [
+  check('vote').notEmpty()
+], async (req, res) =>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).json({errors : errors.array()});
+  }
+  const answerId = req.params.id;
+
+  try{
+    const num = await voteAnswer(answerId, req.body.vote);
+    if(num === 1){
+      res.status(204).end();
+    }
+    else{
+      throw new Error(`Error in casting a vote #${answerId}`);
+    }
+  }catch(e) {
+    res.status(503).json({error: e.message});
+  }
+});
+
+// PUT /api/answers/<id>
+app.put('/api/answers/:id', [
+  check('text').notEmpty(),
+  check('email').isEmail(),
+  check('score').isNumeric(),
+  check('date').isDate({format: 'YYYY-MM-DD', strictMode: true})
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()});
+  }
+
+  const answerToUpdate = req.body;
+  answerToUpdate.id = req.params.id;
+
+  try {
+    await updateAnswer(answerToUpdate);
+    res.status(200).end();
+  } catch {
+    res.status(503).json({'error': `Impossible to update answer #${req.params.id}.`});
+  }
+});
+
+
+//start server
+app.listen(port, () => 'API Server started');
