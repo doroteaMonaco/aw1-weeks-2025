@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 COMPONENTI PRINCIPALI E LORO PROPS DELLA PAGINA HTML PRECEDENTEMENTE CREATA
 
 - NAVBAR -> numero domanda
@@ -13,3 +14,15 @@ COMPONENTI PRINCIPALI E LORO PROPS DELLA PAGINA HTML PRECEDENTEMENTE CREATA
 Quanti e quali stati potrebbero cambiare?
 - Domande
 - Risposte
+=======
+- Navbar
+- Question
+    - Text
+    - Author
+- Risposte
+    - Tabella
+        - Answer
+            - Info
+            - Actions
+- Footer
+>>>>>>> 4c1f8db243d0ba38ac5955c796e3c5b6c788a330

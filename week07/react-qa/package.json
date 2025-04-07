@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "react-qa",
-=======
-  "name": "week06",
->>>>>>> 4c1f8db243d0ba38ac5955c796e3c5b6c788a330
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -15,10 +11,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
-<<<<<<< HEAD
-=======
     "bootstrap-icons": "^1.11.3",
->>>>>>> 4c1f8db243d0ba38ac5955c796e3c5b6c788a330
     "dayjs": "^1.11.13",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
@@ -33,10 +26,6 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
-<<<<<<< HEAD
-    "vite": "^6.2.0"
-=======
     "vite": "^6.2.4"
->>>>>>> 4c1f8db243d0ba38ac5955c796e3c5b6c788a330
   }
 }
