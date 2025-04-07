@@ -1,11 +1,11 @@
 
-import {Question} from './QAModels.mjs'
+import {Question} from './models/QAModels.mjs'
 import NavHeader from './components/NavHeader'
-import QuestionDescription from './QuestionDescription'
-import Answers from './Answers'
+import QuestionDescription from './components/QuestionDescription'
+import Answers from "./components/Answers"
 import { Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Footer from './Footer'
+import Footer from './components/Footer'
 import './App.css'
 import { useState } from 'react';
 
