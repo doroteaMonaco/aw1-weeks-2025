@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 
 import {Question} from './QAModels.mjs'
-import NavHeader from './NavHeader'
+import NavHeader from './components/NavHeader'
 import QuestionDescription from './QuestionDescription'
 import Answers from './Answers'
 import { Container } from 'react-bootstrap'
